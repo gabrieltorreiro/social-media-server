@@ -8,7 +8,7 @@ router.use('/user', require('./user'));
 // HANDLE VALIDATION ERRORS
 router.use((err, req, res, next) => {
     if (err instanceof ValidationError) {
-        return res.status(err.status).json({ error: { message: "Invalid parameters!" } });
+        return res.status(err.statusCode).json({ error: { message: "Invalid parameters!" } });
     }
     next(err);
 })
