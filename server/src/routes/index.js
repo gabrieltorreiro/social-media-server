@@ -4,6 +4,7 @@ const { ValidationError } = require('express-validation');
 
 // ROUTERS
 router.use('/user', require('./user'));
+router.use('/post', require('./post'));
 
 // HANDLE VALIDATION ERRORS
 router.use((err, req, res, next) => {
