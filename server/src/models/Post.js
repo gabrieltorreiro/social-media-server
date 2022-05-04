@@ -1,24 +1,23 @@
 const sequelize = require("../database/sequelize");
 const { DataTypes } = require('sequelize');
-// const { uuid: uuidv4 } = require('uuid');
 
-const Postagem = sequelize.define("Postagem", {
-    fkUsuario: {
+const Post = sequelize.define("Post", {
+    fkUser: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    titulo: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    imagem: {
+    image: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    descricao: {
+    description: {
         type: DataTypes.STRING,
         allowNull: false,
     }
 }, {});
 
-module.exports = Postagem;
+module.exports = Post;

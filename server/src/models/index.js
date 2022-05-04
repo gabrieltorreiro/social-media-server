@@ -1,13 +1,13 @@
-const Usuario = require("../models/Usuario");
-const Comentario = require("./Comentario");
+const User = require("./User");
+const Comment = require("./Comment");
 const Like = require("./Like");
-const Postagem = require("./Postagem");
+const Post = require("./Post");
 
 async function inicializeModels() {
-    await Usuario.sync();
-    await Comentario.sync();
+    await User.sync();
+    await Comment.sync();
     await Like.sync();
-    await Postagem.sync();
+    await Post.sync();
     console.log("Models are connected");
 }
 

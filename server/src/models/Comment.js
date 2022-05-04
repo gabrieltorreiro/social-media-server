@@ -1,7 +1,7 @@
 const sequelize = require("../database/sequelize");
 const { DataTypes } = require('sequelize');
 
-const Like = sequelize.define("Like", {
+const Comment = sequelize.define("Comment", {
     fkUser: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -9,7 +9,7 @@ const Like = sequelize.define("Like", {
     fkPost: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    }
+    },
 }, {});
 
-module.exports = Like;
+module.exports = Comment;

@@ -1,10 +1,10 @@
-const Usuario = require("../models/Usuario");
+const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
     index: async (req, res, next) => {
         try {
-            const users = await Usuario.findAll();
+            const users = await User.findAll();
             if (!users) throw new Error("No users found");
             res.json(users);
         } catch (err) {
@@ -13,7 +13,7 @@ module.exports = {
     },
     show: async (req, res, next) => {
         try {
-            const user = await Usuario.findByPk(req.params.id);
+            const user = await User.findByPk(req.params.id);
             if (!user) throw new Error("User not found!");
             res.json(user);
         } catch (err) {
@@ -22,7 +22,7 @@ module.exports = {
     },
     create: async (req, res, next) => {
         try {
-            const user = await Usuario.create(req.body);
+            const user = await User.create(req.body);
             res.json(user);
         } catch (err) {
             next(err);
@@ -30,7 +30,7 @@ module.exports = {
     },
     login: async (req, res, next) => {
         try {
-            const user = await Usuario.findOne({ where: { emaiL: req.body.email } });
+            const user = await User.findOne({ where: { emaiL: req.body.email } });
             if (!user) throw new Error("User not found!");
             if (req.body.password === user.password.toString()) {
                 const token = await jwt.sign({ id: user.id }, "secret", { expiresIn: "1h" });
@@ -44,7 +44,7 @@ module.exports = {
     update: async (req, res, next) => {
         try {
 
-            const user = await Usuario.update(req.body, {
+            const user = await User.update(req.body, {
                 where: {
                     id: req.auth.id
                 }
@@ -57,7 +57,7 @@ module.exports = {
     },
     delete: async (req, res, next) => {
         try {
-            const user = await Usuario.findByPk(req.auth.id);
+            const user = await User.findByPk(req.auth.id);
             if (!user) throw new Error("User not found!");
             await user.destroy();
             res.json({ deleted: true });
