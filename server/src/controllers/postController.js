@@ -35,7 +35,7 @@ module.exports = {
         try {
             let post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
-            if (post.fkUsuario !== req.auth.id) throw new Error("You are not the owner of this post");
+            if (post.fkUser !== req.auth.id) throw new Error("You are not the owner of this post");
             await post.update(req.body, {
                 where: {
                     id: req.params.id
