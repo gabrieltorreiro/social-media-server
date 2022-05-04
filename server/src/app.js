@@ -9,6 +9,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 
 // ROUTERS
+app.use(require('./routes'));
 
 // ERROR HANDLERS
 app.use((err, req, res, next) => {
