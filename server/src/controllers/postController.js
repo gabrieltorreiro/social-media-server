@@ -1,6 +1,7 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Like = require("../models/Like");
+const Comment = require("../models/Comment");
 
 module.exports = {
     index: async (req, res, next) => {
@@ -122,5 +123,63 @@ module.exports = {
         } catch (err) {
             next(err);
         }
-    }
+    },
+
+    // Comments
+    getAllComments: async (req, res, next) => {
+        try {
+            const comments = await Comment.findAll({
+                where: {
+                    fkPost: req.params.id
+                }
+            });
+            if (!comments) throw new Error("No comments found");
+            res.json(comments);
+        } catch (err) {
+            next(err);
+        }
+    },
+    createComment: async (req, res, next) => {
+        try {
+            const user = await User.findByPk(req.auth.id);
+            if (!user) throw new Error("User not found");
+            const post = await Post.findByPk(req.params.id);
+            if (!post) throw new Error("Post not found");
+            req.body.fkUser = req.auth.id;
+            req.body.fkPost = req.params.id;
+            const comment = await Comment.create(req.body);
+            res.json(comment);
+        } catch (err) {
+            next(err);
+        }
+    },
+    updateComment: async (req, res, next) => {
+        try {
+            const comment = await Comment.update(req.body, {
+                where: {
+                    fkPost: req.params.id,
+                    fkUser: req.auth.id
+                }
+            });
+            if (!comment[0]) throw new Error("Comment not found");
+            res.json({ updated: true });
+        } catch (err) {
+            next(err);
+        }
+    },
+    deleteComment: async (req, res, next) => {
+        try {
+            const comment = await Comment.findOne({
+                where: {
+                    fkUser: req.auth.id,
+                    fkPost: req.params.id
+                }
+            });
+            if (!comment) throw new Error("Comment not found");
+            await comment.destroy();
+            res.json({ deleted: true });
+        } catch (err) {
+            next(err);
+        }
+    },
 }

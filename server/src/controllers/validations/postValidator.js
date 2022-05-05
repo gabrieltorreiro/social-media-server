@@ -49,5 +49,32 @@ module.exports = {
         params: Joi.object({
             id: Joi.number().integer().required()
         })
-    }
+    },
+    // Comments
+    getAllComments: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        })
+    },
+    createComment: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        }),
+        body: Joi.object({
+            content: Joi.string().required()
+        })
+    },
+    updateComment: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        }),
+        body: Joi.object({
+            content: Joi.string().required()
+        })
+    },
+    deleteComment: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        })
+    },
 }
