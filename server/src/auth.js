@@ -1,4 +1,5 @@
 const { expressjwt: jwt } = require('express-jwt');
+const { JWT_SECRET } = require('./config');
 
 function getTokenFromHeader(req) {
     const auth = req.headers.authorization;
@@ -10,13 +11,13 @@ function getTokenFromHeader(req) {
 
 module.exports = {
     required: jwt({
-        secret: 'secret',
+        secret: JWT_SECRET,
         algorithms: ['HS256'],
         userProperty: 'payload',
         getToken: getTokenFromHeader
     }),
     optional: jwt({
-        secret: 'secret',
+        secret: JWT_SECRET,
         algorithms: ['HS256'],
         userProperty: 'payload',
         credentialsRequired: false,
