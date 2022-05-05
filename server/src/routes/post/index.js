@@ -11,4 +11,10 @@ router.post('/', auth.required, validate(postValidator.create), postController.c
 router.put('/:id', auth.required, validate(postValidator.update), postController.update);
 router.delete('/:id', auth.required, validate(postValidator.delete), postController.delete);
 
+// Likes
+router.get('/:id/likes', validate(postValidator.getAllLikes), postController.getAllLikes);
+router.get('/:id/likes/:userId', validate(postValidator.getLikeByUser), postController.getLikeByUser);
+router.post('/:id/likes', auth.required, validate(postValidator.createLike), postController.createLike);
+router.delete('/:id/likes', auth.required, validate(postValidator.deleteLike), postController.deleteLike);
+
 module.exports = router;

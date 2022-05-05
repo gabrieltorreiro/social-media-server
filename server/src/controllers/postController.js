@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Like = require("../models/Like");
 
 module.exports = {
     index: async (req, res, next) => {
@@ -52,6 +53,71 @@ module.exports = {
             if (!post) throw new Error("Post not found");
             if (post.fkUser !== req.auth.id) throw new Error("You are not the owner of this post");
             await post.destroy();
+            res.json({ deleted: true });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    // Like and Unlike
+    getAllLikes: async (req, res, next) => {
+        try {
+            const likes = await Like.findAll({
+                where: {
+                    fkPost: req.params.id
+                }
+            });
+            if (!likes) throw new Error("No likes found");
+            res.json(likes);
+        } catch (err) {
+            next(err);
+        }
+    },
+    getLikeByUser: async (req, res, next) => {
+        try {
+            const like = await Like.findOne({
+                where: {
+                    fkPost: req.params.id,
+                    fkUser: req.params.userId
+                }
+            });
+            if (like) return res.json({ like: true });
+            res.json({ like: false });
+        } catch (err) {
+            next(err);
+        }
+    },
+    createLike: async (req, res, next) => {
+        try {
+            let like = await Like.findOne({
+                where: {
+                    fkPost: req.params.id,
+                    fkUser: req.auth.id
+                }
+            });
+            if (like) throw new Error('Like already exists');
+            const user = await User.findByPk(req.auth.id);
+            if (!user) throw new Error("User not found");
+            const post = await Post.findByPk(req.params.id);
+            if (!post) throw new Error("Post not found");
+            req.body.fkUser = req.auth.id;
+            req.body.fkPost = req.params.id;
+            like = await Like.create(req.body);
+            res.json(like);
+        } catch (err) {
+            next(err);
+        }
+    },
+    deleteLike: async (req, res, next) => {
+        try {
+            const like = await Like.findOne({
+                where: {
+                    fkUser: req.auth.id,
+                    fkPost: req.params.id
+                }
+            });
+            if (!like) throw new Error("Like not found");
+            await like.destroy();
             res.json({ deleted: true });
         } catch (err) {
             next(err);

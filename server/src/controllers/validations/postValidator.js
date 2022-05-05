@@ -27,5 +27,27 @@ module.exports = {
         params: Joi.object({
             id: Joi.number().integer().required()
         })
+    },
+    // Likes
+    getAllLikes: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        })
+    },
+    getLikeByUser: {
+        params: Joi.object({
+            id: Joi.number().integer().required(),
+            userId: Joi.number().integer().required()
+        })
+    },
+    createLike: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        })
+    },
+    deleteLike: {
+        params: Joi.object({
+            id: Joi.number().integer().required()
+        })
     }
 }
