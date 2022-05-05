@@ -10,6 +10,10 @@ const Comment = sequelize.define("Comment", {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
 }, {});
 
 module.exports = Comment;
