@@ -30,7 +30,7 @@ module.exports = {
         try {
             const user = await User.findByPk(req.auth.id);
             if (!user) throw new Error("User not found");
-            req.body.fkUser = req.auth.id;
+            req.body.UserId = req.auth.id;
             const post = await Post.create(req.body);
             res.json(post);
         } catch (err) {
@@ -41,7 +41,7 @@ module.exports = {
         try {
             let post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
-            if (post.fkUser !== req.auth.id) throw new Error("You are not the owner of this post");
+            if (post.UserId !== req.auth.id) throw new Error("You are not the owner of this post");
             await post.update(req.body, {
                 where: {
                     id: req.params.id
@@ -56,7 +56,7 @@ module.exports = {
         try {
             const post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
-            if (post.fkUser !== req.auth.id) throw new Error("You are not the owner of this post");
+            if (post.UserId !== req.auth.id) throw new Error("You are not the owner of this post");
             await post.destroy();
             res.json({ deleted: true });
         } catch (err) {
@@ -69,7 +69,7 @@ module.exports = {
         try {
             const likes = await Like.findAll({
                 where: {
-                    fkPost: req.params.id
+                    PostId: req.params.id
                 }
             });
             if (!likes) throw new Error("No likes found");
@@ -82,8 +82,8 @@ module.exports = {
         try {
             const like = await Like.findOne({
                 where: {
-                    fkPost: req.params.id,
-                    fkUser: req.params.userId
+                    PostId: req.params.id,
+                    UserId: req.params.userId
                 }
             });
             if (like) return res.json({ like: true });
@@ -96,8 +96,8 @@ module.exports = {
         try {
             let like = await Like.findOne({
                 where: {
-                    fkPost: req.params.id,
-                    fkUser: req.auth.id
+                    PostId: req.params.id,
+                    UserId: req.auth.id
                 }
             });
             if (like) throw new Error('Like already exists');
@@ -105,8 +105,8 @@ module.exports = {
             if (!user) throw new Error("User not found");
             const post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
-            req.body.fkUser = req.auth.id;
-            req.body.fkPost = req.params.id;
+            req.body.UserId = req.auth.id;
+            req.body.PostId = req.params.id;
             like = await Like.create(req.body);
             res.json(like);
         } catch (err) {
@@ -117,8 +117,8 @@ module.exports = {
         try {
             const like = await Like.findOne({
                 where: {
-                    fkUser: req.auth.id,
-                    fkPost: req.params.id
+                    UserId: req.auth.id,
+                    PostId: req.params.id
                 }
             });
             if (!like) throw new Error("Like not found");
@@ -134,7 +134,7 @@ module.exports = {
         try {
             const comments = await Comment.findAll({
                 where: {
-                    fkPost: req.params.id
+                    PostId: req.params.id
                 }
             });
             if (!comments) throw new Error("No comments found");
@@ -149,8 +149,8 @@ module.exports = {
             if (!user) throw new Error("User not found");
             const post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
-            req.body.fkUser = req.auth.id;
-            req.body.fkPost = req.params.id;
+            req.body.UserId = req.auth.id;
+            req.body.PostId = req.params.id;
             const comment = await Comment.create(req.body);
             res.json(comment);
         } catch (err) {
@@ -161,8 +161,8 @@ module.exports = {
         try {
             const comment = await Comment.update(req.body, {
                 where: {
-                    fkPost: req.params.id,
-                    fkUser: req.auth.id
+                    PostId: req.params.id,
+                    UserId: req.auth.id
                 }
             });
             if (!comment[0]) throw new Error("Comment not found");
@@ -175,8 +175,8 @@ module.exports = {
         try {
             const comment = await Comment.findOne({
                 where: {
-                    fkUser: req.auth.id,
-                    fkPost: req.params.id
+                    UserId: req.auth.id,
+                    PostId: req.params.id
                 }
             });
             if (!comment) throw new Error("Comment not found");
