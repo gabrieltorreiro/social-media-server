@@ -6,8 +6,12 @@ const Comment = require("../models/Comment");
 module.exports = {
     index: async (req, res, next) => {
         try {
-            const posts = await Post.findAll();
-            if (!posts) throw new InternalServerError();
+            const posts = await Post.findAll({
+                include: [{
+                    model: User,
+                    attributes: ["name"],
+                }]
+            });
             res.json(posts);
         } catch (err) {
             next(err);
