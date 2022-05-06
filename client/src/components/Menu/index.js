@@ -25,7 +25,7 @@ const Menu = () => {
         <Container>
             <Wrapper>
                 <MenuButton to="/" className="fa-solid fa-house" />
-                <MenuButton to="/" className="fa-solid fa-user-group" />
+                <MenuButton to="/friends" className="fa-solid fa-user-group" />
             </Wrapper>
         </Container>
     )
