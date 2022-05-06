@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { getPosts } from '../../api';
 import Post from '../../components/Post';
 
 const Container = styled.div`
@@ -12,13 +13,16 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        getPosts().then(postsData => setPosts(postsData));
+    }, []);
+
     return (
         <Container>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            {posts.map((post, index) => (<Post key={index} {...post} />))}
         </Container>
     )
 }
