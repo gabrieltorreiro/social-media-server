@@ -4,6 +4,14 @@ const Like = require("./Like");
 const Post = require("./Post");
 
 async function inicializeModels() {
+
+    // Associations
+    Post.belongsTo(User);
+    Like.belongsTo(Post);
+    Like.belongsTo(User);
+    Comment.belongsTo(Post);
+    Comment.belongsTo(User);
+
     await User.sync();
     await Comment.sync();
     await Like.sync();
