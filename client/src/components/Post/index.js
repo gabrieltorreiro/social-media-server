@@ -23,18 +23,19 @@ const Title = styled.div`
     display: flex;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    text-transform: capitalize;
 `;
 
 const Description = styled.div`
     display: flex;
     font-size: 0.8rem;
+    text-transform: capitalize;
 `;
 
 const Media = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: orange;
     flex: 1;
 `;
 
@@ -56,11 +57,11 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const Post = ({ title, description, image }) => {
+const Post = ({ userName, description, image }) => {
     return (
         <Container>
             <Profile>
-                <Title>{title}</Title>
+                <Title>{userName}</Title>
                 <Description>{description}</Description>
             </Profile>
             <Media><Image src={image} /></Media>
