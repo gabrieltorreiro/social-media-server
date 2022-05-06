@@ -7,11 +7,13 @@ const Link = styled(NavLink)`
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: var(--blue);
     padding: 0 0.8rem;
     width: 100%;
     height: 100%;
-    border-bottom: 3px solid var(--blue);
+    &.active {
+        color: var(--blue);
+        border-bottom: 3px solid var(--blue);
+    }
 `;
 
 const MenuButton = ({ children, ...props }) => {
