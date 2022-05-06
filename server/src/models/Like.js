@@ -2,11 +2,11 @@ const sequelize = require("../database/sequelize");
 const { DataTypes } = require('sequelize');
 
 const Like = sequelize.define("Like", {
-    fkUser: {
+    UserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    fkPost: {
+    PostId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     }
