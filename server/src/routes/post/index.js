@@ -13,9 +13,8 @@ router.delete('/:id', auth.required, validate(postValidator.delete), postControl
 
 // Likes
 router.get('/:id/likes', validate(postValidator.getAllLikes), postController.getAllLikes);
-router.get('/:id/likes/:userId', validate(postValidator.getLikeByUser), postController.getLikeByUser);
-router.post('/:id/likes', auth.required, validate(postValidator.createLike), postController.createLike);
-router.delete('/:id/likes', auth.required, validate(postValidator.deleteLike), postController.deleteLike);
+router.get('/:id/like', auth.required, validate(postValidator.getLike), postController.getLike);
+router.put('/:id/like', auth.required, validate(postValidator.setLikeStatus), postController.setLikeStatus);
 
 // Comments
 router.get('/:id/comments', validate(postValidator.getAllComments), postController.getAllComments);

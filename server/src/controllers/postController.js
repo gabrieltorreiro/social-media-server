@@ -78,12 +78,12 @@ module.exports = {
             next(err);
         }
     },
-    getLikeByUser: async (req, res, next) => {
+    getLike: async (req, res, next) => {
         try {
             const like = await Like.findOne({
                 where: {
                     PostId: req.params.id,
-                    UserId: req.params.userId
+                    UserId: req.auth.id
                 }
             });
             if (like) return res.json({ like: true });
@@ -92,7 +92,7 @@ module.exports = {
             next(err);
         }
     },
-    createLike: async (req, res, next) => {
+    setLikeStatus: async (req, res, next) => {
         try {
             let like = await Like.findOne({
                 where: {
@@ -100,30 +100,15 @@ module.exports = {
                     UserId: req.auth.id
                 }
             });
-            if (like) throw new Error('Like already exists');
-            const user = await User.findByPk(req.auth.id);
-            if (!user) throw new Error("User not found");
-            const post = await Post.findByPk(req.params.id);
-            if (!post) throw new Error("Post not found");
-            req.body.UserId = req.auth.id;
-            req.body.PostId = req.params.id;
-            like = await Like.create(req.body);
-            res.json(like);
-        } catch (err) {
-            next(err);
-        }
-    },
-    deleteLike: async (req, res, next) => {
-        try {
-            const like = await Like.findOne({
-                where: {
-                    UserId: req.auth.id,
-                    PostId: req.params.id
-                }
-            });
-            if (!like) throw new Error("Like not found");
-            await like.destroy();
-            res.json({ deleted: true });
+            if (!like) {
+                req.body.UserId = req.auth.id;
+                req.body.PostId = req.params.id;
+                like = await Like.create(req.body);
+                return res.json({ like: true });
+            } else {
+                await like.destroy();
+                res.json({ like: false });
+            }
         } catch (err) {
             next(err);
         }

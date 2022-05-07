@@ -33,18 +33,12 @@ module.exports = {
             id: Joi.number().integer().required()
         })
     },
-    getLikeByUser: {
-        params: Joi.object({
-            id: Joi.number().integer().required(),
-            userId: Joi.number().integer().required()
-        })
-    },
-    createLike: {
+    getLike: {
         params: Joi.object({
             id: Joi.number().integer().required()
         })
     },
-    deleteLike: {
+    setLikeStatus: {
         params: Joi.object({
             id: Joi.number().integer().required()
         })
