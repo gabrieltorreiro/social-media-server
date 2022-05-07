@@ -10,6 +10,9 @@ const Link = styled(NavLink)`
     padding: 0 0.8rem;
     width: 100%;
     height: 100%;
+    &:visited {
+        color: var(--font-color);
+    }
     &.active {
         color: var(--blue);
         border-bottom: 3px solid var(--blue);
