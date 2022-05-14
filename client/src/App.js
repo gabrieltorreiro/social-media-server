@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Context } from "./AuthContex";
-import Menu from "./components/Menu";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -8,9 +8,10 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <Context>
-      <Menu />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedRoute />} >
+          <Route path="/" element={<Home />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
