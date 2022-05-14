@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getToken } from '../../api';
@@ -6,7 +7,7 @@ import useForm from '../../hooks/useForm';
 
 const Login = () => {
 
-    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated, setToken } = useContext(AuthContext);
 
     const email = useForm();
     const password = useForm();
@@ -25,6 +26,7 @@ const Login = () => {
         event.preventDefault();
         const token = await getToken(email.value, password.value);
         localStorage.setItem('token', token);
+        setToken(token);
         setIsAuthenticated(true);
         navigate(from, { replace: true });
     }
