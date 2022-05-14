@@ -73,3 +73,15 @@ export async function verifyToken(token) {
         return false;
     }
 }
+
+export async function getToken(email, password) {
+    try {
+        const response = await request(`/user/login`, {
+            method: 'POST',
+            data: { email, password }
+        });
+        return response.data.token;
+    } catch (err) {
+        return false;
+    }
+}
