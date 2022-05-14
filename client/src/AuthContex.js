@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const Context = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
         autoLogin();
@@ -15,13 +16,16 @@ const Context = ({ children }) => {
     const autoLogin = async () => {
         const token = localStorage.getItem('token');
         const isValid = await verifyToken(token);
+        setToken(token);
         setIsAuthenticated(isValid === true);
     };
 
     return (
         <AuthContext.Provider value={{
             isAuthenticated,
-            setIsAuthenticated
+            setIsAuthenticated,
+            token,
+            setToken
         }}>
             {children}
         </AuthContext.Provider>
