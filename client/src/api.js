@@ -61,3 +61,15 @@ export async function getAllLikes(auth, postId) {
         return false;
     }
 }
+
+export async function verifyToken(token) {
+    try {
+        const response = await request(`/user/verify`, {
+            method: 'POST',
+            data: { token }
+        });
+        return response.data.valid;
+    } catch (err) {
+        return false;
+    }
+}
