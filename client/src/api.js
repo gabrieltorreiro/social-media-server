@@ -92,3 +92,48 @@ export async function getToken(email, password) {
         return false;
     }
 }
+
+export async function signUp(name, email, password) {
+    try {
+        const response = await request(`/user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: { name, email, password }
+        });
+        return response.data;
+    } catch (err) {
+        return false;
+    }
+}
+
+export async function addComment(token, postId, content) {
+    try {
+        const response = await request(`/post/${postId}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            data: { content }
+        });
+        return response.data;
+    } catch (err) {
+        return false;
+    }
+}
+
+export async function getAllComments(token, postId) {
+    try {
+        const response = await request(`/post/${postId}/comments`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (err) {
+        return false;
+    }
+}
