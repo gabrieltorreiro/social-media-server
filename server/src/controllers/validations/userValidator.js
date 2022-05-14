@@ -19,6 +19,11 @@ module.exports = {
             password: Joi.string().min(8).required()
         })
     },
+    verify: {
+        body: Joi.object({
+            token: Joi.string().regex(/^[\w-]*\.[\w-]*\.[\w-]*$/).required()
+        })
+    },
     update: {
         body: Joi.object({
             name: Joi.string().optional(),

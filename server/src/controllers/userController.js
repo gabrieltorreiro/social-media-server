@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config");
 
 module.exports = {
     index: async (req, res, next) => {
@@ -39,6 +40,15 @@ module.exports = {
             return res.json({ error: { message: "Wrong password!" } });
         } catch (err) {
             next(err);
+        }
+    },
+    verify: async (req, res, next) => {
+        try {
+            const { token } = req.body;
+            jwt.verify(token, JWT_SECRET);
+            res.json({ valid: true });
+        } catch (err) {
+            res.json({ valid: false });
         }
     },
     update: async (req, res, next) => {
