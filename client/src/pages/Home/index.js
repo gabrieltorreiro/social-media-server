@@ -17,7 +17,11 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        getPosts().then(postsData => setPosts(postsData));
+        (async () => {
+            const token = localStorage.getItem('token');
+            const postsData = await getPosts(token);
+            setPosts(postsData);
+        })()
     }, []);
 
     return (

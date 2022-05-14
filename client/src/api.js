@@ -4,9 +4,13 @@ const request = axios.create({
     baseURL: 'http://localhost:5000'
 });
 
-export async function getPosts() {
+export async function getPosts(token) {
     try {
-        const response = await request.get('/post');
+        const response = await request.get('/post', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data.map(post => {
             return {
                 image: post.image,
@@ -66,6 +70,9 @@ export async function verifyToken(token) {
     try {
         const response = await request(`/user/verify`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             data: { token }
         });
         return response.data.valid;
