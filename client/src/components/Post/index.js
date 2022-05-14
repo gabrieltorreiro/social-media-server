@@ -76,19 +76,19 @@ const StatisArea = styled.div`
 
 const Post = ({ postId, userName, description, image }) => {
 
-    let auth = JSON.parse(localStorage.getItem('auth'));
+    let token = localStorage.getItem('token');
 
     const [like, setLike] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
 
     async function handleLike() {
-        const likeStatus = await setLikeStatus(auth, postId);
+        const likeStatus = await setLikeStatus(token, postId);
         setLike(likeStatus);
     }
 
     useEffect(() => {
-        getLikeByPost(auth, postId).then(status => setLike(status));
-        getAllLikes(auth, postId).then(count => setLikeCount(count));
+        getLikeByPost(token, postId).then(status => setLike(status));
+        getAllLikes(token, postId).then(count => setLikeCount(count));
     }, [like])
 
     return (
