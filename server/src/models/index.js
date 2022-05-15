@@ -14,9 +14,13 @@ async function inicializeModels() {
 
     // Associations
     Post.belongsTo(User);
+    Post.hasMany(Like);
     Like.belongsTo(Post);
+    User.hasMany(Like);
     Like.belongsTo(User);
+    Post.hasMany(Comment);
     Comment.belongsTo(Post);
+    User.hasMany(Comment);
     Comment.belongsTo(User);
 }
 
