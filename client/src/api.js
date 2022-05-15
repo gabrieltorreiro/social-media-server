@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const request = axios.create({
-    baseURL: process.env.API_URL || 'http://75.101.203.4:5000'
+    baseURL: process.env.API_URL || 'https://75.101.203.4:5000'
 });
 
 export async function getPosts(token) {
