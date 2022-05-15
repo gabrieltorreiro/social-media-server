@@ -7,16 +7,18 @@ const Container = styled.div`
 `;
 const Name = styled.div`
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: black;
 `;
 const Content = styled.div`
-    font-size: 0.8rem;
+    font-size: 1rem;
 `;
 
-const Comment = ({ userName, content }) => {
+const Comment = ({ User, content }) => {
     return (
         <Container>
-            <Name>{userName}</Name>
+            <Name>{User.name}</Name>
             <Content>{content}</Content>
         </Container>
     )

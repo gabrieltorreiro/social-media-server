@@ -4,17 +4,16 @@ import { addComment, getAllComments } from '../../api';
 import { AuthContext } from '../../AuthContex';
 import useForm from '../../hooks/useForm';
 import Comment from '../Comment';
+import Input from '../Input';
 
 const Container = styled.div`
     width: 95%;
     border-top: 1px solid rgba(0,0,0,0.2);
 `;
 
-const CommentInput = styled.input`
+const CommentInput = styled(Input)`
     width: 100%;
-    height: 1.5rem;
     margin-top: 0.5rem;
-    padding: 0.5rem;
     border: 1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     &:focus{

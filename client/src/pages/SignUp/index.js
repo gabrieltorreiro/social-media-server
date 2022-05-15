@@ -1,9 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { signUp } from '../../api';
 import { AuthContext } from '../../AuthContex';
+import Input from '../../components/Input';
 import useForm from '../../hooks/useForm';
+
+const Container = styled.div`
+    display: flex;
+    width: 100%;
+    padding-top: 30%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+`;
+
+const Button = styled.button`
+    margin-top: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    background-color: var(--blue);
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    &:hover {
+        opacity: 0.8;
+    }
+`;
 
 const SignUp = () => {
 
@@ -30,12 +65,14 @@ const SignUp = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='Name' {...name} />
-            <input type="email" placeholder='Email' {...email} />
-            <input type="password" placeholder='Passoword' {...password} />
-            <button type='submit'>SignUp</button>
-        </form>
+        <Container>
+            <Form onSubmit={handleSubmit}>
+                <Input type="text" placeholder='Name' {...name} />
+                <Input type="email" placeholder='Email' {...email} />
+                <Input type="password" placeholder='Password' {...password} />
+                <Button type='submit'>Sign up</Button>
+            </Form>
+        </Container>
     )
 }
 
