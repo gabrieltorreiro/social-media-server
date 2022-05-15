@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Context } from "./AuthContex";
+import { AuthContextProvider } from "./AuthContex";
+import { UserContextProvider } from "./UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -8,16 +9,18 @@ import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <Context>
-      <Routes>
-        <Route element={<ProtectedRoute />} >
-          <Route path="/" element={<Home />} />
-        </Route>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Context>
+    <AuthContextProvider>
+      <UserContextProvider>
+        <Routes>
+          <Route element={<ProtectedRoute />} >
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </UserContextProvider>
+    </AuthContextProvider>
   );
 }
 

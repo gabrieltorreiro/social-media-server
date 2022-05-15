@@ -4,7 +4,7 @@ import { verifyToken } from './api';
 
 const AuthContext = createContext();
 
-const Context = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [token, setToken] = useState(null);
@@ -32,4 +32,4 @@ const Context = ({ children }) => {
     )
 }
 
-export { Context, AuthContext }
+export { AuthContextProvider, AuthContext }
