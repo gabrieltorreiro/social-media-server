@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getToken } from '../../api';
 import { AuthContext } from '../../AuthContex';
@@ -58,6 +58,10 @@ const Login = () => {
                 <Input type="password" placeholder='Password' {...password} />
                 <FormButton value="Login" type='submit' />
             </Form>
+            <Link to='/signup'>
+                <p>Don't have an account? Sign up</p>
+            </Link>
+
         </Container>
     )
 }
