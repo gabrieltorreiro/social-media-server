@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { addComment, getAllComments, getAllLikes, getLikeByPost, setLikeStatus } from '../../api';
+import { getAllLikes, getLikeByPost, setLikeStatus } from '../../api';
 import { AuthContext } from '../../AuthContex';
-import useForm from '../../hooks/useForm';
-import Comment from '../Comment';
+import Comments from '../Comments';
 
 const Container = styled.div`
     display: flex;
@@ -79,23 +78,6 @@ const StatisArea = styled.div`
     border-bottom: 1px solid rgba(0,0,0,0.2);
 `;
 
-const CommentArea = styled.div`
-    width: 95%;
-    border-top: 1px solid rgba(0,0,0,0.2);
-`;
-
-const CommentInput = styled.input`
-    width: 100%;
-    height: 1.5rem;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 5px;
-    &:focus{
-        outline: 1px solid rgba(0,0,0,0.3);
-    }
-`;
-
 const Post = ({ postId, userName, description, image }) => {
 
     let { token } = useContext(AuthContext);
@@ -103,34 +85,15 @@ const Post = ({ postId, userName, description, image }) => {
     const [like, setLike] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
-    const [comments, setComments] = useState([]);
-
-    const comment = useForm();
 
     async function toggleCommentStatus() {
         setCommentStatus(!commentStatus);
-    }
-
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const token = localStorage.getItem('token');
-        await addComment(token, postId, comment.value);
-        await updateComments();
     }
 
     async function handleLike() {
         const likeStatus = await setLikeStatus(token, postId);
         setLike(likeStatus);
     }
-
-    async function updateComments() {
-        const response = await getAllComments(token, postId);
-        setComments(response);
-    }
-
-    useEffect(() => {
-        updateComments();
-    }, [])
 
     useEffect(() => {
         getLikeByPost(token, postId).then(status => setLike(status));
@@ -153,18 +116,9 @@ const Post = ({ postId, userName, description, image }) => {
                     <i className="fa-solid fa-thumbs-up" style={{ marginRight: '5px' }} />
                     Like
                 </Button>
-                <Button className={commentStatus && 'active'} onClick={toggleCommentStatus}>comment</Button>
+                <Button className={commentStatus && 'active'} onClick={toggleCommentStatus}>Comment</Button>
             </ButtonArea>
-            {
-                commentStatus &&
-                (<CommentArea>
-                    <form onSubmit={handleSubmit}>
-                        <CommentInput type="text" placeholder="Write a comment..." {...comment} />
-                        <input type="submit" hidden />
-                    </form>
-                    {comments && comments.map((comment) => <Comment {...comment} />)}
-                </CommentArea>)
-            }
+            {commentStatus && <Comments postId={postId} />}
         </Container >
     )
 }
