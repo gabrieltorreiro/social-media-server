@@ -4,6 +4,8 @@
   "description": "Simple social network inspired by facebook",
   "main": "index.js",
   "scripts": {
+    "start": "pm2 start index.js --name social-api --watch",
+    "stop": "pm2 stop social-api",
     "dev": "nodemon index.js"
   },
   "keywords": [],
