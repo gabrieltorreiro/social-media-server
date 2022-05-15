@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const request = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: process.env.API_URL || 'http://localhost:5000'
 });
 
 export async function getPosts(token) {
@@ -16,10 +16,12 @@ export async function getPosts(token) {
                 image: post.image,
                 description: post.description,
                 userName: post.user.name,
-                postId: post.id
+                postId: post.id,
+                likes: post.likes.length
             }
         });
     } catch (err) {
+        console.log(err);
         return [];
     }
 }
