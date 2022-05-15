@@ -5,6 +5,7 @@ import useForm from '../../hooks/useForm';
 import FormButton from '../FormButton';
 import Input from '../Input'
 import { AuthContext } from '../../AuthContex';
+import { UserContext } from '../../UserContext';
 
 const InputStyled = styled(Input)`
     width: 100%;
@@ -20,10 +21,12 @@ const PostWriter = ({ posts, setPosts }) => {
 
     const description = useForm('');
     const { token } = useContext(AuthContext);
+    const { updatePosts } = useContext(UserContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         await sendPost(token, description.value, "image");
+        await updatePosts();
     }
 
     return (

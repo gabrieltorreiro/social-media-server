@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { getPosts } from '../../api';
-import { AuthContext } from '../../AuthContex';
 import Card from '../../components/Card';
 import Post from '../../components/Post';
 import PostWriter from '../../components/PostWriter';
+import { UserContext } from '../../UserContext';
 
 const Container = styled.div`
     display: flex;
@@ -17,17 +16,7 @@ const Container = styled.div`
 
 const Home = () => {
 
-    const [posts, setPosts] = useState([]);
-    const { token } = useContext(AuthContext);
-
-    async function updatePosts() {
-        const postsData = await getPosts(token);
-        setPosts(postsData);
-    }
-
-    useEffect(() => {
-        updatePosts();
-    }, []);
+    const { posts } = useContext(UserContext);
 
     return (
         <Container>
