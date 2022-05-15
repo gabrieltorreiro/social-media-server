@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getPosts } from '../../api';
+import { AuthContext } from '../../AuthContex';
+import Card from '../../components/Card';
 import Post from '../../components/Post';
+import PostWriter from '../../components/PostWriter';
 
 const Container = styled.div`
     display: flex;
@@ -15,20 +18,26 @@ const Container = styled.div`
 const Home = () => {
 
     const [posts, setPosts] = useState([]);
+    const { token } = useContext(AuthContext);
+
+    async function updatePosts() {
+        const postsData = await getPosts(token);
+        setPosts(postsData);
+    }
 
     useEffect(() => {
-        (async () => {
-            const token = localStorage.getItem('token');
-            const postsData = await getPosts(token);
-            setPosts(postsData);
-        })()
+        updatePosts();
     }, []);
 
     return (
         <Container>
+            <Card>
+                <PostWriter />
+            </Card>
             {posts.map((post, index) => (<Post key={index} {...post} />))}
         </Container>
     )
 }
 
 export default Home
+

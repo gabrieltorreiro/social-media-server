@@ -24,6 +24,32 @@ export async function getPosts(token) {
     }
 }
 
+export async function sendPost(token, description, image) {
+    try {
+        const response = await request('/post', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            data: {
+                description,
+                image
+            }
+        });
+        return response.data.map(post => {
+            return {
+                image: post.image,
+                description: post.description,
+                userName: post.User.name,
+                postId: post.id
+            }
+        });
+    } catch (err) {
+        return [];
+    }
+}
+
 export async function getLikeByPost(auth, postId) {
     try {
         const response = await request(`/post/${postId}/like`, {
