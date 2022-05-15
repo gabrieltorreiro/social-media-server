@@ -57,10 +57,10 @@ const Login = () => {
                 <Input type="email" placeholder='Email' {...email} />
                 <Input type="password" placeholder='Password' {...password} />
                 <FormButton value="Login" type='submit' />
+                <Link to='/signup'>
+                    <p>Don't have an account? Sign up</p>
+                </Link>
             </Form>
-            <Link to='/signup'>
-                <p>Don't have an account? Sign up</p>
-            </Link>
 
         </Container>
     )
