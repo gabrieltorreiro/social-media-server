@@ -2,11 +2,11 @@ const sequelize = require("../database/sequelize");
 const { DataTypes } = require('sequelize');
 
 const Comment = sequelize.define("comment", {
-    UserId: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    PostId: {
+    postId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
