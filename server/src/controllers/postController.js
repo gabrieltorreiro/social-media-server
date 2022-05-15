@@ -10,7 +10,10 @@ module.exports = {
                 include: [{
                     model: User,
                     attributes: ["name"],
-                }]
+                }],
+                order: [
+                    ["createdAt", "DESC"]
+                ]
             });
             res.json(posts);
         } catch (err) {
@@ -124,7 +127,10 @@ module.exports = {
                 include: [{
                     model: User,
                     attributes: ["name"]
-                }]
+                }],
+                order: [
+                    ['createdAt', 'DESC']
+                ]
             });
             if (!comments) throw new Error("No comments found");
             res.json(comments);
