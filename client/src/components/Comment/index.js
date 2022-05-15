@@ -15,10 +15,10 @@ const Content = styled.div`
     font-size: 1rem;
 `;
 
-const Comment = ({ User, content }) => {
+const Comment = ({ user, content }) => {
     return (
         <Container>
-            <Name>{User.name}</Name>
+            <Name>{user.name}</Name>
             <Content>{content}</Content>
         </Container>
     )

@@ -15,7 +15,7 @@ export async function getPosts(token) {
             return {
                 image: post.image,
                 description: post.description,
-                userName: post.User.name,
+                userName: post.user.name,
                 postId: post.id
             }
         });
@@ -41,7 +41,7 @@ export async function sendPost(token, description, image) {
             return {
                 image: post.image,
                 description: post.description,
-                userName: post.User.name,
+                userName: post.user.name,
                 postId: post.id
             }
         });
