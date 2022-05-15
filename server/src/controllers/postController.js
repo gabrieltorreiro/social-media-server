@@ -120,7 +120,11 @@ module.exports = {
             const comments = await Comment.findAll({
                 where: {
                     PostId: req.params.id
-                }
+                },
+                include: [{
+                    model: User,
+                    attributes: ["name"]
+                }]
             });
             if (!comments) throw new Error("No comments found");
             res.json(comments);
