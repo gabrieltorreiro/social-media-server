@@ -63,6 +63,7 @@ const Button = styled.button`
     cursor: pointer;
     text-transform: capitalize;
     color: var(--font-color);
+    background-color: white;
     &.active{
         color: var(--blue);
     }
