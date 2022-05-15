@@ -3,19 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getAllLikes, getLikeByPost, setLikeStatus } from '../../api';
 import { AuthContext } from '../../AuthContex';
+import Card from '../Card';
 import Comments from '../Comments';
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--font-color);
-    width: 100%;
-    max-width: 500px;
-    border-radius: 0.5rem;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.2), -1px -1px 3px rgba(0,0,0,0.2);
-    padding: 0.5rem 0;
-`;
 
 const Profile = styled.div`
     display: flex;
@@ -102,7 +91,7 @@ const Post = ({ postId, userName, description, image }) => {
     }, [like])
 
     return (
-        <Container>
+        <Card>
             <Profile>
                 <Title>{userName}</Title>
                 <Description>{description}</Description>
@@ -120,7 +109,7 @@ const Post = ({ postId, userName, description, image }) => {
                 <Button className={commentStatus && 'active'} onClick={toggleCommentStatus}>Comment</Button>
             </ButtonArea>
             {commentStatus && <Comments postId={postId} />}
-        </Container >
+        </Card >
     )
 }
 
