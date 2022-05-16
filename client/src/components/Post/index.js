@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getLikeByPost, getLikesCount, setLikeStatus } from '../../api';
+import { getImage, getLikeByPost, getLikesCount, setLikeStatus } from '../../api';
 import { AuthContext } from '../../AuthContex';
+import { API_URL } from '../../config';
 import Card from '../Card';
 import Comments from '../Comments';
 
@@ -106,7 +107,7 @@ const Post = ({ postId, userName, description, image }) => {
                 <Title>{userName}</Title>
                 <Description>{description}</Description>
             </Profile>
-            <Media><Image src={image} /></Media>
+            <Media><Image src={`${API_URL}/image/${image}`} alt="Image not found" width="500" /></Media>
             <StatisArea>
                 <i className="fa-solid fa-thumbs-up" style={{ color: 'var(--blue)', marginRight: '5px' }} />
                 {likeCount}
