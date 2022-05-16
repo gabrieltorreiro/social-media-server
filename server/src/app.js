@@ -2,10 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
-const helmet = require('helmet');
 
 // OPTIONS
-app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
