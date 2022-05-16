@@ -23,7 +23,7 @@ const Home = () => {
             <Card>
                 <PostWriter />
             </Card>
-            {posts.map((post, index) => (<Post key={index} {...post} />))}
+            {posts.map((post, index) => (<Post key={post.postId} {...post} />))}
         </Container>
     )
 }
