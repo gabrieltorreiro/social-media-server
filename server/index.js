@@ -4,6 +4,6 @@ const inicializeDatabase = require("./src/database");
 
 inicializeDatabase().then(() => {
     app.listen(PORT, () => {
-        console.log("Server running...");
+        console.log(`Server running on port ${PORT}`);
     });
 });
