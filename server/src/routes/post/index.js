@@ -4,6 +4,21 @@ const postController = require('../../controllers/postController');
 const postValidator = require('../../controllers/validations/postValidator');
 const { validate } = require('express-validation');
 const auth = require('../../auth');
+const multer = require("multer");
+const { v4: uuidv4 } = require('uuid');
+const { IMAGES_PATH } = require('../../config');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, IMAGES_PATH)
+    },
+    filename: function (req, file, cb) {
+        let extension = file.originalname && file.originalname.split('.')[1];
+        extension = extension != '' ? extension : 'jpg';
+        cb(null, uuidv4() + '.' + extension);
+    }
+})
+
+const upload = multer({ storage });
 
 // Required Authentication
 router.use(auth.required);
@@ -11,7 +26,7 @@ router.use(auth.required);
 // Posts
 router.get('/', postController.index);
 router.get('/:id', validate(postValidator.show), postController.show);
-router.post('/', validate(postValidator.create), postController.create);
+router.post('/', upload.single("image"), postController.create);
 router.put('/:id', validate(postValidator.update), postController.update);
 router.delete('/:id', validate(postValidator.delete), postController.delete);
 
