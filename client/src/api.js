@@ -80,7 +80,7 @@ export async function setLikeStatus(auth, postId) {
     }
 }
 
-export async function getAllLikes(auth, postId) {
+export async function getLikesCount(auth, postId) {
     try {
         const response = await request(`/post/${postId}/likes`, {
             method: 'GET',
