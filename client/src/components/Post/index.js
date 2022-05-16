@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getAllLikes, getLikeByPost, setLikeStatus } from '../../api';
+import { getLikeByPost, getLikesCount, setLikeStatus } from '../../api';
 import { AuthContext } from '../../AuthContex';
 import Card from '../Card';
 import Comments from '../Comments';
@@ -72,7 +72,7 @@ const Post = ({ postId, userName, description, image }) => {
 
     let { token } = useContext(AuthContext);
 
-    const [like, setLike] = useState(false);
+    const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
 
@@ -81,14 +81,24 @@ const Post = ({ postId, userName, description, image }) => {
     }
 
     async function handleLike() {
-        const likeStatus = await setLikeStatus(token, postId);
-        setLike(likeStatus);
+        await updateLikeState();
+        await updateLikeCount();
+    }
+
+    const updateLikeState = async () => {
+        await setLikeStatus(token, postId);
+    }
+
+    const updateLikeCount = async () => {
+        const count = await getLikesCount(token, postId);
+        const likeState = await getLikeByPost(token, postId);
+        setLiked(likeState);
+        setLikeCount(count);
     }
 
     useEffect(() => {
-        getLikeByPost(token, postId).then(status => setLike(status));
-        getAllLikes(token, postId).then(count => setLikeCount(count));
-    }, [like])
+        updateLikeCount();
+    }, [])
 
     return (
         <Card>
@@ -102,7 +112,7 @@ const Post = ({ postId, userName, description, image }) => {
                 {likeCount}
             </StatisArea>
             <ButtonArea>
-                <Button className={like && 'active'} onClick={handleLike}>
+                <Button className={liked && 'active'} onClick={handleLike}>
                     <i className="fa-solid fa-thumbs-up" style={{ marginRight: '5px' }} />
                     Like
                 </Button>
