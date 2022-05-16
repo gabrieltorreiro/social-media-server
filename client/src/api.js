@@ -1,7 +1,8 @@
-const axios = require('axios');
+import axios from 'axios';
+import { API_URL } from './config';
 
 const request = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:5000'
+    baseURL: API_URL
 });
 
 export async function getPosts(token) {
@@ -21,33 +22,24 @@ export async function getPosts(token) {
             }
         });
     } catch (err) {
-        console.log(err);
         return [];
     }
 }
 
-export async function sendPost(token, description, image) {
+export async function sendPost(token, formData) {
     try {
         const response = await request('/post', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`
             },
-            data: {
-                description,
-                image
-            }
+            data: formData
         });
-        return response.data.map(post => {
-            return {
-                image: post.image,
-                description: post.description,
-                userName: post.user.name,
-                postId: post.id
-            }
-        });
+        console.log(response);
+        return [];
     } catch (err) {
+        console.log(err);
         return [];
     }
 }
