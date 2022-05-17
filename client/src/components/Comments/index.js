@@ -51,7 +51,7 @@ const Comments = ({ postId }) => {
                 <CommentInput type="text" placeholder="Write a comment..." {...commentContent} />
                 <input type="submit" hidden />
             </form>
-            {comments && comments.map((comment) => <Comment {...comment} />)}
+            {comments && comments.map((comment) => <Comment key={comment.id} {...comment} />)}
         </Container>
     )
 }
