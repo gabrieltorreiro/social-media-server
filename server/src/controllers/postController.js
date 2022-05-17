@@ -28,6 +28,7 @@ module.exports = {
         try {
             const user = await User.findByPk(req.auth.id);
             if (!user) throw new Error("User not found");
+            if (!req.file) throw new Error("Image not found");
             req.body.image = req.file.filename;
             req.body.userId = req.auth.id;
             const post = await Post.create(req.body);
