@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { addComment, getAllComments } from '../../api';
-import { AuthContext } from '../../AuthContex';
+import { ADD_COMMENT, GET_ALL_COMMENTS } from '../../services/api';
+import { AuthContext } from '../../contexts/AuthContext';
 import useForm from '../../hooks/useForm';
 import Comment from '../Comment';
 import Input from '../Input';
+import useRequest from '../../hooks/useRequest';
 
 const Container = styled.div`
     width: 95%;
@@ -26,11 +28,12 @@ const Comments = ({ postId }) => {
     const { token } = useContext(AuthContext);
 
     const commentContent = useForm();
+    const { request } = useRequest();
 
     const [comments, setComments] = useState([]);
 
     async function updateComments() {
-        const response = await getAllComments(token, postId);
+        const response = await request(GET_ALL_COMMENTS(token, postId));
         setComments(response);
     }
 
@@ -41,7 +44,7 @@ const Comments = ({ postId }) => {
     async function handleSubmit(e) {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        await addComment(token, postId, commentContent.value);
+        await request(ADD_COMMENT(token, postId, commentContent.value));
         await updateComments();
     }
 

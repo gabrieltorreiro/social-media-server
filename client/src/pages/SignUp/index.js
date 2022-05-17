@@ -2,11 +2,12 @@
 import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { signUp } from '../../api';
-import { AuthContext } from '../../AuthContex';
+import { SIGN_UP } from '../../services/api';
+import { AuthContext } from '../../contexts/AuthContext';
 import FormButton from '../../components/FormButton';
 import Input from '../../components/Input';
 import useForm from '../../hooks/useForm';
+import useRequest from '../../hooks/useRequest';
 
 const Container = styled.div`
     display: flex;
@@ -36,6 +37,8 @@ const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const { request } = useRequest();
+
     const { from } = location.state || { from: { pathname: '/' } };
 
     useEffect(() => {
@@ -45,7 +48,7 @@ const SignUp = () => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        await signUp(name.value, email.value, password.value);
+        await request(SIGN_UP(name.value, email.value, password.value));
         navigate("/login", { replace: true });
     }
 

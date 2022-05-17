@@ -2,11 +2,13 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getToken } from '../../api';
-import { AuthContext } from '../../AuthContex';
+import { GET_TOKEN } from '../../services/api';
+import { AuthContext } from '../../contexts/AuthContext';
 import FormButton from '../../components/FormButton';
 import Input from '../../components/Input';
 import useForm from '../../hooks/useForm';
+import useRequest from '../../hooks/useRequest';
+import Error from '../../components/Error';
 
 const Container = styled.div`
     display: flex;
@@ -35,6 +37,8 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const { request, error, loading } = useRequest();
+
     const { from } = location.state || { from: { pathname: '/' } };
 
     useEffect(() => {
@@ -44,7 +48,7 @@ const Login = () => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const token = await getToken(email.value, password.value);
+        const { token } = await request(GET_TOKEN(email.value, password.value));
         localStorage.setItem('token', token);
         setToken(token);
         setIsAuthenticated(true);
@@ -56,10 +60,11 @@ const Login = () => {
             <Form onSubmit={handleSubmit}>
                 <Input type="email" placeholder='Email' {...email} />
                 <Input type="password" placeholder='Password' {...password} />
-                <FormButton value="Login" type='submit' />
+                <FormButton loading={loading} value="Login" type='submit' />
                 <Link to='/signup'>
                     <p>Don't have an account? Sign up</p>
                 </Link>
+                <Error>{error && error.message}</Error>
             </Form>
 
         </Container>

@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getImage, getLikeByPost, getLikesCount, setLikeStatus } from '../../api';
-import { AuthContext } from '../../AuthContex';
+import { GET_LIKES_COUNT, GET_LIKE_BY_POST, SET_LIKE_STATUS } from '../../services/api';
+import { AuthContext } from '../../contexts/AuthContext';
 import { API_URL } from '../../config';
 import Card from '../Card';
 import Comments from '../Comments';
+import useRequest from '../../hooks/useRequest';
+
 
 const Profile = styled.div`
     display: flex;
@@ -69,13 +71,15 @@ const StatisArea = styled.div`
     border-bottom: 1px solid rgba(0,0,0,0.2);
 `;
 
-const Post = ({ postId, userName, description, image }) => {
+const Post = (post) => {
 
     let { token } = useContext(AuthContext);
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
+
+    const { request } = useRequest();
 
     async function toggleCommentStatus() {
         setCommentStatus(!commentStatus);
@@ -87,14 +91,14 @@ const Post = ({ postId, userName, description, image }) => {
     }
 
     const updateLikeState = async () => {
-        await setLikeStatus(token, postId);
+        await request(SET_LIKE_STATUS(token, post.id));
     }
 
     const updateLikeCount = async () => {
-        const count = await getLikesCount(token, postId);
-        const likeState = await getLikeByPost(token, postId);
-        setLiked(likeState);
-        setLikeCount(count);
+        const likes = await request(GET_LIKES_COUNT(token, post.id));
+        const likeState = await request(GET_LIKE_BY_POST(token, post.id));
+        setLiked(likeState.like);
+        setLikeCount(likes.length);
     }
 
     useEffect(() => {
@@ -104,10 +108,10 @@ const Post = ({ postId, userName, description, image }) => {
     return (
         <Card>
             <Profile>
-                <Title>{userName}</Title>
-                <Description>{description}</Description>
+                <Title>{post.user.name}</Title>
+                <Description>{post.description}</Description>
             </Profile>
-            <Media><Image src={`${API_URL}/image/${image}`} alt="Image not found" width="500" /></Media>
+            <Media><Image src={`${API_URL}/image/${post.image}`} alt="Image not found" width="500" /></Media>
             <StatisArea>
                 <i className="fa-solid fa-thumbs-up" style={{ color: 'var(--blue)', marginRight: '5px' }} />
                 {likeCount}
@@ -119,7 +123,7 @@ const Post = ({ postId, userName, description, image }) => {
                 </Button>
                 <Button className={commentStatus && 'active'} onClick={toggleCommentStatus}>Comment</Button>
             </ButtonArea>
-            {commentStatus && <Comments postId={postId} />}
+            {commentStatus && <Comments postId={post.id} />}
         </Card >
     )
 }
