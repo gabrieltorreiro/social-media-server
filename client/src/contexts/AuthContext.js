@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { createContext, useEffect, useState } from 'react'
-import { verifyToken } from './api';
+import useRequest from '../hooks/useRequest';
+import { VERIFY_TOKEN } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -9,15 +11,17 @@ const AuthContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [token, setToken] = useState(null);
 
+    const { request } = useRequest();
+
     useEffect(() => {
         autoLogin();
     }, [isAuthenticated]);
 
     const autoLogin = async () => {
         const token = localStorage.getItem('token');
-        const isValid = await verifyToken(token);
+        const isValid = await request(VERIFY_TOKEN(token));
         setToken(token);
-        setIsAuthenticated(isValid === true);
+        setIsAuthenticated(isValid.valid === true);
     };
 
     return (

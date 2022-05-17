@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getPosts } from './api';
-import { AuthContext } from './AuthContex';
+import useRequest from '../hooks/useRequest';
+import { GET_POSTS } from '../services/api';
+import { AuthContext } from './AuthContext';
 
 const UserContext = createContext();
 
@@ -9,9 +11,10 @@ const UserContextProvider = ({ children }) => {
     const { token } = useContext(AuthContext);
 
     const [posts, setPosts] = useState();
+    const { request } = useRequest();
 
     async function updatePosts() {
-        const postsData = await getPosts(token);
+        const postsData = await request(GET_POSTS(token));
         setPosts(postsData);
     }
 
