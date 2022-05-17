@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import Card from '../../components/Card';
+import Loading from '../../components/Loading';
 import Post from '../../components/Post';
 import PostWriter from '../../components/PostWriter';
-import { UserContext } from '../../UserContext';
+import { UserContext } from '../../contexts/UserContext';
 
 const Container = styled.div`
     display: flex;
@@ -23,7 +24,8 @@ const Home = () => {
             <Card>
                 <PostWriter />
             </Card>
-            {posts.map((post, index) => (<Post key={post.postId} {...post} />))}
+            {!posts && <Loading />}
+            {posts && posts.map(post => (<Post key={post.id} {...post} />))}
         </Container>
     )
 }
