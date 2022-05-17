@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ValidationError } = require('express-validation');
 const fs = require('fs');
-const { IMAGES_PATH } = require('../config');
+const { IMAGES_PATH } = require('../../config');
 const path = require('path');
 
 // ROUTERS

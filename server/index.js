@@ -1,5 +1,5 @@
 const app = require("./src/app");
-const { PORT } = require("./src/config");
+const { PORT } = require("./config");
 const inicializeDatabase = require("./src/database");
 
 inicializeDatabase().then(() => {
