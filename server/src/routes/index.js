@@ -11,7 +11,7 @@ router.use('/post', require('./post'));
 router.get('/image/:imageName', async (req, res, next) => {
     try {
         const { imageName } = req.params;
-        if (!fs.existsSync(`./uploads/${imageName}`))
+        if (!fs.existsSync(path.join(IMAGES_PATH, imageName)))
             throw new Error("Image not found");
         res.sendFile(path.join(IMAGES_PATH, imageName));
     } catch (err) {
