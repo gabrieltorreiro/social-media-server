@@ -35,9 +35,9 @@ module.exports = {
             if (!user) throw new Error("User not found!");
             if (req.body.password === user.password.toString()) {
                 const token = await jwt.sign({ id: user.id }, "secret", { expiresIn: "1h" });
-                return res.json({ login: true, token });
+                return res.json({ token });
             }
-            return res.json({ error: { message: "Wrong password!" } });
+            return res.status(400).json({ error: { message: "Wrong password!" } });
         } catch (err) {
             next(err);
         }
