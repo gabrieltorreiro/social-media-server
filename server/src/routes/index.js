@@ -22,7 +22,7 @@ router.get('/image/:imageName', async (req, res, next) => {
 // HANDLE VALIDATION ERRORS
 router.use((err, req, res, next) => {
     if (err instanceof ValidationError) {
-        return res.status(err.statusCode).json({ error: { message: "Invalid parameters!" } });
+        return res.status(err.statusCode).json({ error: err });
     }
     next(err);
 })
