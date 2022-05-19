@@ -42,3 +42,21 @@
 - Node
 - React
 - Express
+
+<br>
+
+## Installation
+
+```bash
+    git clone https://github.com/Gabrieltorreiro/social-media.git
+
+    cd social-media/
+    
+    # run server
+    cd server/
+    npm run dev
+
+    # run client
+    cd client/
+    npm start
+```
