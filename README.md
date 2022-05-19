@@ -49,8 +49,8 @@
 
 ```bash
     git clone https://github.com/Gabrieltorreiro/social-media.git
-
     cd social-media/
+    npm install
     
     # run server
     cd server/
