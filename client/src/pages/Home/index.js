@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Card from '../../components/Card';
 import Loading from '../../components/Loading';

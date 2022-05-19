@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import useRequest from '../hooks/useRequest';
 import { GET_POSTS } from '../services/api';
 import { AuthContext } from './AuthContext';
