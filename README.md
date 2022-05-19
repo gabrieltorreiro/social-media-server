@@ -42,6 +42,7 @@
 - Node
 - React
 - Express
+- SQLite
 
 <br>
 
