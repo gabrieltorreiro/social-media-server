@@ -35,7 +35,7 @@ module.exports = {
             const user = await User.findOne({ where: { emaiL: req.body.email } });
             if (!user) throw new Error("User not found!");
             if (bcrypt.compareSync(req.body.password, user.password)) {
-                const token = await jwt.sign({ id: user.id }, "secret", { expiresIn: "1h" });
+                const token = await jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1d" });
                 return res.json({ token });
             }
             return res.status(400).json({ error: { message: "Wrong password!" } });
