@@ -3,6 +3,12 @@
 > Functional social media inspired by facebook. 
 
 
+<br>
+
+## Demo
+---
+
+[Live Demo](http://social-media-api.s3-website-us-east-1.amazonaws.com/)
 
 <br>
 
