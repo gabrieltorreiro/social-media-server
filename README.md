@@ -16,8 +16,6 @@
 
 ---
 
-<br>
-
 ### Login page
 <img src="screenshot1.png" width="100%"/>
 
