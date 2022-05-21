@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../../config");
+const bcrypt = require("bcrypt");
 
 module.exports = {
     index: async (req, res, next) => {
@@ -33,7 +34,7 @@ module.exports = {
         try {
             const user = await User.findOne({ where: { emaiL: req.body.email } });
             if (!user) throw new Error("User not found!");
-            if (req.body.password === user.password.toString()) {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
                 const token = await jwt.sign({ id: user.id }, "secret", { expiresIn: "1h" });
                 return res.json({ token });
             }
