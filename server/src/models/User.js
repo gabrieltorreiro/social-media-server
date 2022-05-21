@@ -1,5 +1,6 @@
 const sequelize = require("../database/sequelize");
 const { DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const User = sequelize.define("user", {
     name: {
@@ -20,9 +21,28 @@ const User = sequelize.define("user", {
         }
     },
     password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            notEmpty: true,
+            len: [6, 60]
+        }
     },
-}, {});
+}, {
+    hooks: {
+        beforeCreate: (user) => {
+            return new Promise((resolve, reject) => {
+                user.password = user.password.toString();
+                bcrypt.hash(user.password, 10, (err, hash) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    user.password = hash;
+                    resolve(user);
+                })
+            })
+        }
+    }
+});
 
 module.exports = User;
