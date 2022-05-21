@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { GET_LIKES_COUNT, GET_LIKE_BY_POST, SET_LIKE_STATUS } from '../../services/api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { API_URL } from '../../config';
@@ -71,6 +71,28 @@ const StatisArea = styled.div`
     border-bottom: 1px solid rgba(0,0,0,0.2);
 `;
 
+const loading = keyframes`
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 100% 0%;
+    }
+`;
+
+const ImageLoader = styled.div`
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(-45deg, #888 45%, #aaa 50%, #888 55%) no-repeat;
+    background-size: 250% 100%;
+    align-items: center;
+    animation-name: ${loading};
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+`;
+
 const Post = (post) => {
 
     let { token } = useContext(AuthContext);
@@ -78,6 +100,7 @@ const Post = (post) => {
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
+    const [imageLoad, setImageLoad] = useState(false);
 
     const { request } = useRequest();
 
@@ -101,6 +124,10 @@ const Post = (post) => {
         setLikeCount(likes.length);
     }
 
+    function onImageLoadHandle() {
+        setImageLoad(true);
+    }
+
     useEffect(() => {
         updateLikeCount();
     }, [])
@@ -111,7 +138,10 @@ const Post = (post) => {
                 <Title>{post.user.name}</Title>
                 <Description>{post.description}</Description>
             </Profile>
-            <Media><Image src={`${API_URL}/image/${post.image}`} alt="Image not found" width="500" /></Media>
+            <Media>
+                {!imageLoad && <ImageLoader />}
+                <Image style={{ display: imageLoad ? 'initial' : 'none' }} src={`${API_URL}/image/${post.image}`} onLoad={onImageLoadHandle} alt="Image not found" />
+            </Media>
             <StatisArea>
                 <i className="fa-solid fa-thumbs-up" style={{ color: 'var(--blue)', marginRight: '5px' }} />
                 {likeCount}
