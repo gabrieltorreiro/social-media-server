@@ -21,7 +21,7 @@ module.exports = {
     },
     verify: {
         body: Joi.object({
-            token: Joi.string().uuid().required()
+            token: Joi.string().regex(/(\w)*\.(\w)*\.(\w)/).required()
         })
     },
     update: {
