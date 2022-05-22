@@ -8,13 +8,14 @@ import Card from '../Card';
 import Comments from '../Comments';
 import useRequest from '../../hooks/useRequest';
 import ImageLoader from '../ImageLoader';
+import PostMenu from '../PostMenu';
 
 
-const Profile = styled.div`
+const Header = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 0rem 1rem;
     width: 100%;
 `;
 
@@ -27,6 +28,9 @@ const Title = styled.div`
 
 const Description = styled.div`
     display: flex;
+    padding: 0.5rem 1rem; 
+    margin-bottom: 0.5rem;
+    width: 100%;
     font-size: 0.8rem;
     text-transform: capitalize;
 `;
@@ -104,10 +108,11 @@ const Post = (post) => {
 
     return (
         <Card>
-            <Profile>
+            <Header>
                 <Title>{post.user.name}</Title>
-                <Description>{post.description}</Description>
-            </Profile>
+                <PostMenu postId={post.id} />
+            </Header>
+            <Description>{post.description}</Description>
             <Media>
                 <ImageLoader src={`${API_URL}/image/${post.image}`} alt="Image not found" />
             </Media>

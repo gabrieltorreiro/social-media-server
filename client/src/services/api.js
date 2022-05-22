@@ -24,6 +24,19 @@ export function SEND_POST(token, formData) {
     }
 }
 
+export function DELETE_POST(token, postId) {
+    return {
+        url: `/post/${postId}`,
+        options: {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`
+            }
+        }
+    }
+}
+
 export function GET_LIKE_BY_POST(auth, postId) {
     return {
         url: `/post/${postId}/like`,
