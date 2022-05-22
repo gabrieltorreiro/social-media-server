@@ -8,7 +8,7 @@ const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
 
-    const { token } = useContext(AuthContext);
+    const { token, isAuthenticated } = useContext(AuthContext);
 
     const [posts, setPosts] = useState();
     const { request } = useRequest();
@@ -19,8 +19,8 @@ const UserContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        updatePosts();
-    }, [token]);
+        isAuthenticated && updatePosts();
+    }, [isAuthenticated]);
 
     return (
         <UserContext.Provider value={{

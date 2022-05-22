@@ -15,13 +15,18 @@ const AuthContextProvider = ({ children }) => {
 
     useEffect(() => {
         autoLogin();
-    }, [isAuthenticated]);
+    }, []);
 
     const autoLogin = async () => {
         const token = localStorage.getItem('token');
         const isValid = await request(VERIFY_TOKEN(token));
-        setToken(token);
-        setIsAuthenticated(isValid.valid === true);
+        if (isValid.valid) {
+            setIsAuthenticated(true);
+            setToken(token);
+        } else {
+            localStorage.removeItem('token');
+            setIsAuthenticated(true);
+        }
     };
 
     return (
