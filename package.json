@@ -5,6 +5,10 @@
     "workspaces": [
         "packages/*"
     ],
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix ."
+    },
     "devDependencies": {
         "@social-media/eslint-config": "*"
     }
