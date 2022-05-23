@@ -12,6 +12,7 @@
         "lint:fix": "eslint --fix ."
     },
     "devDependencies": {
-        "@social-media/eslint-config": "*"
+        "@social-media/eslint-config": "*",
+        "husky": "^8.0.1"
     }
 }
