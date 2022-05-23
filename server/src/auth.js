@@ -1,10 +1,10 @@
-const { expressjwt: jwt } = require('express-jwt');
-const { JWT_SECRET } = require('../config');
+const { expressjwt: jwt } = require("express-jwt");
+const { JWT_SECRET } = require("../config");
 
-function getTokenFromHeader(req) {
+function getTokenFromHeader (req) {
     const auth = req.headers.authorization;
-    if (auth && auth.split(' ')[0] === 'Bearer') {
-        return auth.split(' ')[1];
+    if (auth && auth.split(" ")[0] === "Bearer") {
+        return auth.split(" ")[1];
     }
     return null;
 }
@@ -12,15 +12,15 @@ function getTokenFromHeader(req) {
 module.exports = {
     required: jwt({
         secret: JWT_SECRET,
-        algorithms: ['HS256'],
-        userProperty: 'payload',
+        algorithms: ["HS256"],
+        userProperty: "payload",
         getToken: getTokenFromHeader
     }),
     optional: jwt({
         secret: JWT_SECRET,
-        algorithms: ['HS256'],
-        userProperty: 'payload',
+        algorithms: ["HS256"],
+        userProperty: "payload",
         credentialsRequired: false,
         getToken: getTokenFromHeader
     })
-}
+};

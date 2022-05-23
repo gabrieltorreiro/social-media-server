@@ -3,9 +3,7 @@ const Comment = require("./Comment");
 const Like = require("./Like");
 const Post = require("./Post");
 
-async function inicializeModels() {
-
-
+async function inicializeModels () {
     await User.sync();
     await Comment.sync();
     await Like.sync();

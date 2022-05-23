@@ -54,12 +54,11 @@ module.exports = {
     },
     update: async (req, res, next) => {
         try {
-
             const user = await User.update(req.body, {
                 where: {
                     id: req.auth.id
                 }
-            })
+            });
             if (!user[0]) throw new Error("User not found!");
             res.json({ updated: true });
         } catch (err) {
@@ -76,4 +75,4 @@ module.exports = {
             next(err);
         }
     }
-}
+};

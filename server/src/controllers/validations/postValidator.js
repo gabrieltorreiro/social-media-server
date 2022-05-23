@@ -1,4 +1,4 @@
-const { Joi } = require('express-validation')
+const { Joi } = require("express-validation");
 
 module.exports = {
     show: {
@@ -69,5 +69,5 @@ module.exports = {
         params: Joi.object({
             id: Joi.number().integer().required()
         })
-    },
-}
+    }
+};

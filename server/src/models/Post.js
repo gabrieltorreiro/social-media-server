@@ -1,18 +1,18 @@
 const sequelize = require("../database/sequelize");
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 const Post = sequelize.define("post", {
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     }
 }, {});
 

@@ -1,4 +1,4 @@
-const { Joi } = require('express-validation')
+const { Joi } = require("express-validation");
 
 module.exports = {
     show: {
@@ -31,4 +31,4 @@ module.exports = {
             password: Joi.string().min(8).max(50).optional()
         })
     }
-}
+};

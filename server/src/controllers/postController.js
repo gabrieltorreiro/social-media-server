@@ -7,7 +7,7 @@ module.exports = {
     index: async (req, res, next) => {
         try {
             const posts = await Post.findAll({
-                include: [Like, Comment, { model: User, attributes: ['name'] }],
+                include: [Like, Comment, { model: User, attributes: ["name"] }],
                 order: [["createdAt", "DESC"]]
             });
             res.json(posts);
@@ -39,14 +39,14 @@ module.exports = {
     },
     update: async (req, res, next) => {
         try {
-            let post = await Post.findByPk(req.params.id);
+            const post = await Post.findByPk(req.params.id);
             if (!post) throw new Error("Post not found");
             if (post.userId !== req.auth.id) throw new Error("You are not the owner of this post");
             await post.update(req.body, {
                 where: {
                     id: req.params.id
                 }
-            })
+            });
             res.json({ updated: true });
         } catch (err) {
             next(err);
@@ -126,7 +126,7 @@ module.exports = {
                     attributes: ["name"]
                 }],
                 order: [
-                    ['createdAt', 'DESC']
+                    ["createdAt", "DESC"]
                 ]
             });
             if (!comments) throw new Error("No comments found");
@@ -177,5 +177,5 @@ module.exports = {
         } catch (err) {
             next(err);
         }
-    },
-}
+    }
+};

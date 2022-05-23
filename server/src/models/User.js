@@ -1,6 +1,6 @@
 const sequelize = require("../database/sequelize");
-const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+const { DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
 
 const User = sequelize.define("user", {
     name: {
@@ -27,7 +27,7 @@ const User = sequelize.define("user", {
             notEmpty: true,
             len: [6, 60]
         }
-    },
+    }
 }, {
     hooks: {
         beforeCreate: (user) => {
@@ -39,8 +39,8 @@ const User = sequelize.define("user", {
                     }
                     user.password = hash;
                     resolve(user);
-                })
-            })
+                });
+            });
         }
     }
 });

@@ -1,16 +1,16 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const morgan = require('morgan');
+const cors = require("cors");
+const morgan = require("morgan");
 
 // OPTIONS
 app.use(cors());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(express.json());
 
 // ROUTERS
-app.use(require('./routes'));
+app.use(require("./routes"));
 
 // ERROR HANDLERS
 app.use((err, req, res, next) => {
@@ -19,7 +19,7 @@ app.use((err, req, res, next) => {
     } else {
         next();
     }
-})
+});
 
 // 404
 app.use((req, res) => {
