@@ -78,6 +78,7 @@ const Post = (post) => {
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+    const [commentCount, setCommentCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
 
     const { request } = useRequest();
@@ -104,6 +105,7 @@ const Post = (post) => {
 
     useEffect(() => {
         updateLikeCount();
+        setCommentCount(post.comments.length);
     }, [])
 
     return (
