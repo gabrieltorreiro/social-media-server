@@ -37,6 +37,7 @@
 - Posts
 - Comments
 - Likes
+- Dark Mode
 
 <br>
 
@@ -58,10 +59,10 @@
     npm install
     
     # run server
-    cd server/
+    cd packages/server
     npm run dev
 
     # run client
-    cd client/
+    cd packages/client
     npm start
 ```
