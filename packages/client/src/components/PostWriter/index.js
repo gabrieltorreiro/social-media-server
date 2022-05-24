@@ -13,12 +13,14 @@ const InputStyled = styled(Input)`
     width: 100%;
     border-radius: 10px;
     border: 1px solid var(--font-color);
+    background-color: var(--bg-color);
 `;
 
 const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 0.5rem;
     width: 100%;
     padding: 0.3rem 1rem;
 `;

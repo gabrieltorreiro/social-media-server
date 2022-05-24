@@ -5,6 +5,7 @@ const InputStyled = styled.input`
     width: 100%;
     font-size: 1.2rem;
     padding: 0.5rem;
+    background-color: var(--bg-color);
 `;
 
 const Input = ({ children, ...rest }) => {

@@ -14,7 +14,9 @@ const Container = styled.div`
 const Button = styled.button`
     border: none;
     font-size: 1.5rem;
+    color: var(--font-color);
     cursor: pointer;
+    background-color: var(--bg-color);
 `;
 
 const Menu = styled.ul`
