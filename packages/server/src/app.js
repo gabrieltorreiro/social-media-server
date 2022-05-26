@@ -12,18 +12,20 @@ app.use(express.json());
 // ROUTERS
 app.use(require("./routes"));
 
-// ERROR HANDLERS
+// 404
 app.use((err, req, res, next) => {
-    if (err) {
-        res.status(err.status || 500).json({ error: { message: err.message || "Internal server error!" } });
+    if (!err) {
+        const error = new Error("Route not Found");
+        error.status = 404;
+        next(error);
     } else {
-        next();
+        next(err);
     }
 });
 
-// 404
-app.use((req, res) => {
-    res.status(404).json({ error: { message: "Route not found!" } });
+// ERROR HANDLERS
+app.use((err, req, res) => {
+    res.status(err.status || 500).json({ error: { message: err.message || "Internal server error!" } });
 });
 
 module.exports = app;
