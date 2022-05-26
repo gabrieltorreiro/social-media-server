@@ -2,6 +2,8 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 const Like = require("../models/Like");
 const Comment = require("../models/Comment");
+const { uploadImage } = require("../services/s3");
+const fs = require("fs");
 
 module.exports = {
     index: async (req, res, next) => {
@@ -32,6 +34,8 @@ module.exports = {
             req.body.image = req.file.filename;
             req.body.userId = req.auth.id;
             const post = await Post.create(req.body);
+            await uploadImage(req.file.path);
+            fs.rmSync(req.file.path);
             res.json(post);
         } catch (err) {
             next(err);
