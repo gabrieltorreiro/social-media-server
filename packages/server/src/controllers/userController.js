@@ -6,7 +6,9 @@ const bcrypt = require("bcrypt");
 module.exports = {
     index: async (req, res, next) => {
         try {
-            const users = await User.findAll();
+            const users = await User.findAll({
+                attributes: { exclude: ["password"] }
+            });
             if (!users) throw new Error("No users found");
             res.json(users);
         } catch (err) {
@@ -15,7 +17,9 @@ module.exports = {
     },
     show: async (req, res, next) => {
         try {
-            const user = await User.findByPk(req.params.id);
+            const user = await User.findByPk(req.params.id, {
+                attributes: { exclude: ["password"] }
+            });
             if (!user) throw new Error("User not found!");
             res.json(user);
         } catch (err) {
