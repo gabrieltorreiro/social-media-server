@@ -8,6 +8,7 @@ async function inicializeModels () {
     await Comment.sync();
     await Like.sync();
     await Post.sync();
+    // eslint-disable-next-line no-console
     console.log("Models are connected");
 
     // Associations

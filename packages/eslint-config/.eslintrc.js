@@ -20,9 +20,23 @@ module.exports = {
     rules: {
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        indent: ["error", 4],
-        semi: ["error", "always"],
-        quotes: ["error", "double"]
+        indent: [
+            "error",
+            4
+        ],
+        semi: [
+            "error",
+            "always"
+        ],
+        quotes: [
+            "error",
+            "double"
+        ],
+        "space-before-function-paren": [
+            "error",
+            "always"
+        ],
+        "no-console": "error"
     },
     settings: {
         react: {
