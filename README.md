@@ -17,15 +17,15 @@
 ---
 
 ### Login page
-<img src="screenshot1.png" width="100%"/>
+<img src="screenshots/screenshot1.png" width="100%"/>
 
 
 <br>
 
 ### Home Page
 <div style="display: flex; justify-content: space-between;">
-    <img src="screenshot2.png" width="49.5%"/>
-    <img src="screenshot3.png" width="49.5%"/>
+    <img src="screenshots/screenshot2.png" width="49.5%"/>
+    <img src="screenshots/screenshot3.png" width="49.5%"/>
 </div>
 
 <br>
