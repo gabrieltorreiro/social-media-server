@@ -6,10 +6,13 @@
         "packages/*"
     ],
     "scripts": {
-        "start:server": "node packages/server/index.js",
+        "start:server": "NODE_ENV=production node packages/server/index.js",
         "start:client": "npm --prefix packages/client run start",
         "lint": "eslint .",
         "lint:fix": "eslint --fix ."
+    },
+    "dependencies": {
+        "@social-media/config": "*"
     },
     "devDependencies": {
         "@social-media/eslint-config": "*",

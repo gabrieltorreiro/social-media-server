@@ -6,7 +6,7 @@ const { validate } = require("express-validation");
 const auth = require("../../auth");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-const { IMAGES_PATH } = require("../../../config");
+const { IMAGES_PATH } = require("@social-media/config");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, IMAGES_PATH);

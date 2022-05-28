@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../../config");
+const { JWT_SECRET } = require("@social-media/config");
 const bcrypt = require("bcrypt");
 
 module.exports = {

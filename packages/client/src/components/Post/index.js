@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { GET_LIKES_COUNT, GET_LIKE_BY_POST, SET_LIKE_STATUS } from '../../services/api';
 import { AuthContext } from '../../contexts/AuthContext';
-import { API_URL } from '../../config';
+import API_URL from '../../config';
 import Card from '../Card';
 import Comments from '../Comments';
 import useRequest from '../../hooks/useRequest';
@@ -78,7 +78,6 @@ const Post = (post) => {
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
-    const [commentCount, setCommentCount] = useState(0);
     const [commentStatus, setCommentStatus] = useState(false);
 
     const { request } = useRequest();
@@ -105,7 +104,6 @@ const Post = (post) => {
 
     useEffect(() => {
         updateLikeCount();
-        setCommentCount(post.comments.length);
     }, [])
 
     return (

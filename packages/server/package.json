@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "stop": "pm2 stop social-api",
-    "dev": "nodemon index.js"
+    "dev": "NODE_ENV=development nodemon index.js"
   },
   "keywords": [],
   "author": "GabrielTorreiro",

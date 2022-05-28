@@ -34,8 +34,10 @@ module.exports = {
             req.body.image = req.file.filename;
             req.body.userId = req.auth.id;
             const post = await Post.create(req.body);
-            await uploadImage(req.file.path);
-            fs.rmSync(req.file.path);
+            if (process.env.NODE_ENV === "production") {
+                await uploadImage(req.file.path);
+                fs.rmSync(req.file.path);
+            }
             res.json(post);
         } catch (err) {
             next(err);
