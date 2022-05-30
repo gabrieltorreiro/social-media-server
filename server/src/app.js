@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { ValidationError } = require("express-validation");
 const fs = require('fs');
+const { LOG_PATH } = require("../config");
 
 // OPTIONS
 app.use(cors());
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
 
 // ERROR HANDLERS
 app.use((err, req, res, next) => {
-    fs.writeFile('../logs', JSON.stringify(err), 'utf-8');
+    fs.appendFileSync(LOG_PATH, (err.message || 'Unknown Error') + '\n' );
     if (err instanceof ValidationError) {
         return res.status(err.statusCode).json({ error: err });
     }
