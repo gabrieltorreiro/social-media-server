@@ -8,6 +8,7 @@ import FormButton from '../../components/FormButton';
 import Input from '../../components/Input';
 import useForm from '../../hooks/useForm';
 import useRequest from '../../hooks/useRequest';
+import Error from '../../components/Error';
 
 const Container = styled.div`
     display: flex;
@@ -37,7 +38,7 @@ const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { request } = useRequest();
+    const { request, error } = useRequest();
 
     const { from } = location.state || { from: { pathname: '/' } };
 
@@ -48,8 +49,8 @@ const SignUp = () => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        await request(SIGN_UP(name.value, email.value, password.value));
-        navigate("/login", { replace: true });
+        const response = await request(SIGN_UP(name.value, email.value, password.value));
+        response && navigate("/login", { replace: true });
     }
 
     return (
@@ -59,6 +60,7 @@ const SignUp = () => {
                 <Input type="email" placeholder='Email' {...email} />
                 <Input type="password" placeholder='Password' {...password} />
                 <FormButton value="Sign up" type='submit' />
+                <Error>{error && error.message}</Error>
             </Form>
         </Container>
     )
