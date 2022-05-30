@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { DB_URL } = require("@social-media/config");
+const { DB_URL } = require("../../config");
 const inicializeModels = require("../models");
 const sequelize = require("./sequelize");
 

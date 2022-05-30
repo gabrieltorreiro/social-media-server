@@ -1,5 +1,5 @@
 const { expressjwt: jwt } = require("express-jwt");
-const { JWT_SECRET } = require("@social-media/config");
+const { JWT_SECRET } = require("../config");
 
 function getTokenFromHeader (req) {
     const auth = req.headers.authorization;
