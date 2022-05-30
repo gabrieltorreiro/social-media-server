@@ -13,18 +13,15 @@ app.use(express.json());
 app.use(require("./routes"));
 
 // 404
-app.use((err, req, res, next) => {
-    if (!err) {
-        const error = new Error("Route not Found");
-        error.status = 404;
-        next(error);
-    } else {
-        next(err);
-    }
+app.use((req, res, next) => {
+    const error = new Error("Route not Found");
+    error.status = 404;
+    next(error);
 });
 
 // ERROR HANDLERS
 app.use((err, req, res) => {
+    console.log(err);
     res.status(err.status || 500).json({ error: { message: err.message || "Internal server error!" } });
 });
 
