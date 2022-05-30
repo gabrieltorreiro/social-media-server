@@ -37,7 +37,7 @@ module.exports = {
     login: async (req, res, next) => {
         try {
             const user = await User.findOne({ where: { email: req.body.email } });
-            if (!user) throw new Error("User not found!");
+            if (!user) return res.status(404).json({ error: { message: "User not Found" } });
             if (bcrypt.compareSync(req.body.password, user.password)) {
                 const token = await jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1d" });
                 return res.json({ token });
