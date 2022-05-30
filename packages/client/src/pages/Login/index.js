@@ -29,7 +29,7 @@ const Form = styled.form`
 
 const Login = () => {
 
-    const { isAuthenticated, setIsAuthenticated, setToken } = useContext(AuthContext);
+    const { isAuthenticated, login } = useContext(AuthContext);
 
     const email = useForm();
     const password = useForm();
@@ -48,11 +48,10 @@ const Login = () => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const { token } = await request(GET_TOKEN(email.value, password.value));
-        localStorage.setItem('token', token);
-        setToken(token);
-        setIsAuthenticated(true);
-        navigate(from, { replace: true });
+        const response = await request(GET_TOKEN(email.value, password.value));
+        if (response) {
+            login(response.token);
+        }
     }
 
     return (

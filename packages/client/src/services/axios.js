@@ -5,6 +5,4 @@ const request = axios.create({
     baseURL: API_URL
 });
 
-console.log(API_URL);
-
 export default request;

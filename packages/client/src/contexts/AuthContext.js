@@ -17,16 +17,31 @@ const AuthContextProvider = ({ children }) => {
         autoLogin();
     }, []);
 
+    const login = async (token) => {
+        if(token){
+            const isValid = await request(VERIFY_TOKEN(token));
+            if (isValid && isValid.valid) {
+                localStorage.setItem("token", token);
+                setIsAuthenticated(true);
+                setToken(token);
+            } else {
+                localStorage.removeItem('token');
+                setIsAuthenticated(true);
+            }
+        }else{
+            logout();
+        }
+    }   
+
     const autoLogin = async () => {
         const token = localStorage.getItem('token');
-        const isValid = await request(VERIFY_TOKEN(token));
-        if (isValid.valid) {
-            setIsAuthenticated(true);
-            setToken(token);
-        } else {
-            localStorage.removeItem('token');
-            setIsAuthenticated(true);
-        }
+        login(token);
+    };
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+        setToken(null);
     };
 
     return (
@@ -34,7 +49,8 @@ const AuthContextProvider = ({ children }) => {
             isAuthenticated,
             setIsAuthenticated,
             token,
-            setToken
+            setToken,
+            login
         }}>
             {children}
         </AuthContext.Provider>
